@@ -1,0 +1,59 @@
+- hosts :  varnish
+
+  remote_user: root
+  become: yes
+
+  gather_facts: true
+
+  vars:
+
+    domain_name: "{{ lookup('file', 'random_domain.txt') }}"
+
+  tasks:
+
+    - name : install epel-release
+      shell : yum -y install epel-release
+      
+      
+    - name : install varnish
+      shell : yum -y install varnish
+      
+    - name : enable varnish
+      shell : systemctl enable varnish
+      
+    - name : start varnish
+      shell : systemctl start varnish
+      
+    - name : change port to 80
+      shell: sed -i "s/VARNISH_LISTEN_PORT=6081/VARNISH_LISTEN_PORT=80/g" /etc/varnish/varnish.params
+      
+    - name : Modify Varnish Configuration
+      template:
+        src: templates/varnish.default.j2
+        
+
+        dest: /etc/varnish/default.vcl
+
+        owner: root
+
+        group: root
+
+        mode: 0644
+
+        backup: yes
+
+    - name : Reload Varnish Configuration Files
+
+      shell: varnish_reload_vcl
+
+    - name : Restart Varnish Service
+
+      service:
+
+        name: varnish
+
+        state: restarted
+
+    
+
+   
