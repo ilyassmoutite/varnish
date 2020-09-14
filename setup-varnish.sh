@@ -1,7 +1,6 @@
 rm /etc/ansible/hosts
 touch /etc/ansible/hosts
 cd /home/centos
-git clone https://github.com/ilyassmoutite/varnish.git
 pip install awscli
 touch script.sh
 echo "aws configure set aws_access_key_id AKIAIYJ2G527GS7UYHIQ" >> script.sh
