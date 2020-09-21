@@ -11,7 +11,7 @@ echo $(aws ec2 describe-instances --region eu-west-1 --query 'Reservations[*].In
 "Name=instance-state-name,Values=running"  'Name=tag:Name,Values=HelloWorld' --output text ) >> /home/centos/varnish/magento-ip
 chmod 777 /home/centos/varnish/varnish-ip
 chmod 777 /home/centos/varnish/magento-ip
-cd varnish
+cd /home/centos/varnish
 export ANSIBLE_HOST_KEY_CHECKING=False
 aws s3 cp s3://key-ilyass/magentokey_eu_west_1.pem key.pem
 chmod 400 key.pem
