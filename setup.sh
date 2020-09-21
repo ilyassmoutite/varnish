@@ -15,7 +15,7 @@ cd varnish
 export ANSIBLE_HOST_KEY_CHECKING=False
 aws s3 cp s3://key-ilyass/magentokey_eu_west_1.pem key.pem
 chmod 400 key.pem
-sh hosts.sh
+sh /home/centos/varnish/hosts.sh
 ansible app -m ping --private-key=key.pem >> output
 ansible varnish -m ping --private-key=key.pem >> output
 ansible-playbook playbook_varnish.yml --private-key=key.pem >> output
