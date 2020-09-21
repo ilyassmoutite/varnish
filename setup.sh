@@ -1,3 +1,7 @@
+
+rm /etc/ansible/hosts varnish-ip magento-ip script.sh
+touch varnish-ip
+touch magento-ip
 echo $(aws ec2 describe-instances --region eu-west-1 --query 'Reservations[*].Instances[*].[PublicIpAddress]' --filters \
 "Name=instance-state-name,Values=running"  'Name=tag:Name,Values=VarnishProduction' --output text ) >> varnish-ip
 
